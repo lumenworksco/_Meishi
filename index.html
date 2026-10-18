@@ -4,6 +4,23 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>名刺 — Florian Braun</title>
+<meta name="description" content="Bilingual (English / Japanese) meishi business card for Florian Braun, designed in HTML and CSS at the standard 91 × 55 mm size and ready to print.">
+<meta name="author" content="Florian Braun">
+<meta name="theme-color" content="#e8e4de">
+<link rel="canonical" href="https://lumenworksco.github.io/Meishi/">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://lumenworksco.github.io/Meishi/">
+<meta property="og:image" content="https://lumenworksco.github.io/Meishi/social-preview.png">
+<meta property="og:image:width" content="1280">
+<meta property="og:image:height" content="640">
+<meta property="og:image:alt" content="Front and back of Florian Braun's bilingual English and Japanese meishi business card">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://lumenworksco.github.io/Meishi/social-preview.png">
+<meta property="og:title" content="名刺 · Meishi — Florian Braun">
+<meta property="og:description" content="Bilingual English / Japanese business card, print-ready at 91 × 55 mm.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='18' fill='%231a1a1a'/%3E%3Ctext x='50' y='70' font-size='62' text-anchor='middle' fill='%23faf9f6' font-family='serif'%3E名%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -12,7 +29,9 @@
     --ink: #1a1a1a;
     --paper: #faf9f6;
     --accent: #b8a99a;
-    --subtle: #d4cdc4;
+    --accent-text: #7d6e60;  /* darker accent for legible small text */
+    --muted: #5e564f;        /* contact lines */
+    --subtle: #8a8279;       /* page chrome */
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -39,7 +58,7 @@
     font-size: 14px;
     letter-spacing: 4px;
     text-transform: uppercase;
-    color: var(--accent);
+    color: var(--accent-text);
     text-align: center;
   }
 
@@ -124,16 +143,16 @@
     font-size: 8.5px;
     letter-spacing: 2.5px;
     text-transform: uppercase;
-    color: var(--accent);
+    color: var(--accent-text);
     font-weight: 400;
     line-height: 1.7;
   }
 
   .card-front .contact {
     font-family: Arial, sans-serif;
-    font-size: 7.5px;
+    font-size: 8px;
     letter-spacing: 0.5px;
-    color: var(--subtle);
+    color: var(--muted);
     font-weight: 400;
     line-height: 1.8;
     margin-top: auto;
@@ -168,7 +187,7 @@
   }
 
   .card-back .name-jp {
-    font-family: 'Noto Serif JP', serif;
+    font-family: 'Noto Serif JP', 'Hiragino Mincho ProN', 'Yu Mincho', serif;
     font-weight: 300;
     font-size: 22px;
     letter-spacing: 6px;
@@ -185,19 +204,19 @@
   }
 
   .card-back .title-jp {
-    font-family: 'Noto Serif JP', serif;
+    font-family: 'Noto Serif JP', 'Hiragino Mincho ProN', 'Yu Mincho', serif;
     font-size: 8.5px;
     letter-spacing: 2px;
-    color: var(--accent);
+    color: var(--accent-text);
     font-weight: 300;
     line-height: 1.8;
   }
 
   .card-back .contact-jp {
     font-family: Arial, sans-serif;
-    font-size: 7.5px;
+    font-size: 8px;
     letter-spacing: 0.5px;
-    color: var(--subtle);
+    color: var(--muted);
     font-weight: 400;
     line-height: 1.8;
     margin-top: auto;
@@ -214,8 +233,29 @@
   }
 
   .print-note strong {
-    color: var(--accent);
+    color: var(--accent-text);
     font-weight: 400;
+  }
+
+  .print-btn {
+    margin-top: 16px;
+    padding: 8px 20px;
+    font: inherit;
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--accent-text);
+    background: transparent;
+    border: 1px solid var(--accent);
+    border-radius: 2px;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+  }
+
+  .print-btn:hover,
+  .print-btn:focus-visible {
+    background: var(--accent-text);
+    color: var(--paper);
   }
 
   /* ── ANIMATION ── */
@@ -229,11 +269,35 @@
 
   h1 { animation: fadeUp 0.6s ease both; }
   .print-note { animation: fadeUp 0.8s 0.3s ease both; }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation: none !important; transition: none !important; }
+  }
+
+  /* ── PRINT: one exact 91 × 55 mm card per page ── */
+  @page { size: 91mm 55mm; margin: 0; }
+
+  @media print {
+    html, body { background: none; }
+    body { display: block; min-height: 0; padding: 0; gap: 0; background-image: none; }
+    h1, .side-label, .print-note { display: none; }
+    .cards-container { display: block; }
+    .card-wrapper { display: block; animation: none; break-after: page; }
+    .card-wrapper:last-child { break-after: auto; }
+    .card {
+      zoom: 0.9451;  /* 364px (design size) → 91mm */
+      box-shadow: none;
+      border-radius: 0;
+      transform: none;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+  }
 </style>
 </head>
 <body>
 
-  <h1>名刺 &nbsp;·&nbsp; Meishi</h1>
+  <h1><span lang="ja">名刺</span> &nbsp;·&nbsp; Meishi</h1>
 
   <div class="cards-container">
     <!-- FRONT — English -->
@@ -249,19 +313,20 @@
 
     <!-- BACK — Japanese -->
     <div class="card-wrapper">
-      <div class="card card-back">
+      <div class="card card-back" lang="ja">
         <div class="name-jp">フロリアン・ブラウン</div>
         <div class="divider"></div>
         <div class="title-jp">コンピュータサイエンス<br>データと人工知能</div>
         <div class="contact-jp">braunf25@proton.me<br>linkedin.com/in/braunflorian25</div>
       </div>
-      <span class="side-label">Back — 日本語</span>
+      <span class="side-label">Back — <span lang="ja">日本語</span></span>
     </div>
   </div>
 
   <div class="print-note">
     Standard meishi size · <strong>91 × 55 mm</strong><br>
-    Print on thick uncoated stock (350gsm) for best results
+    Print on thick uncoated stock (350gsm) for best results<br>
+    <button class="print-btn" type="button" onclick="window.print()">Print cards</button>
   </div>
 
 </body>
