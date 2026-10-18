@@ -10,7 +10,7 @@ A bilingual (English / Japanese) business card, designed entirely in HTML and CS
 
 ## Preview
 
-**Live:** https://lumenworksco.github.io/Meishi/
+**Live:** https://meishi.braunf.com/
 
 Open [`index.html`](index.html) in any modern browser, or serve it locally:
 
